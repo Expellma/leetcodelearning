@@ -1,0 +1,74 @@
+QUESTION NO.1:TWO SUM
+
+my solution(compile error)
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* twoSum(int* nums, int numsSize, int target) {
+    int i,j;
+    int* result=malloc(2*sizeof(int));
+    
+    
+    for(i=0;i<numsSize-1;i++)
+        for(j=i+1;j<numsSize;j++)
+        {
+            if(nums[i]>=target) break;
+            if((nums[i]+nums[j])==target)
+            {
+                result[0]=i;
+                result[1]=j;
+                return result;
+            }
+        }
+        
+        
+        
+      AC solution
+      Note: The returned array must be malloced, assume caller calls free().
+/
+int twoSum(int* nums, int numsSize, int target) {
+
+int i,j;
+int indices = malloc( 2sizeof(int) );
+int max,min;
+
+max = nums[0];
+min = nums[0];
+
+for( i=1; i<numsSize; i++ )
+{
+if( nums[i] > max )
+max = nums[i];
+if( nums[i] < min )
+min = nums[i];
+}
+
+int* repeat_tag = malloc( (max-min+1)*sizeof(int) );
+memset( repeat_tag, 0, (max-min+1)*sizeof(int) );
+
+int diff;
+
+for( i=0; i<numsSize; i++ )
+{
+diff = target-nums[i];
+
+ if( ( diff <= max ) && ( diff >= min ) ) 
+     repeat_tag[ diff-min ] = i;
+}
+
+for( i=0; i<numsSize; i++ )
+{
+if( repeat_tag[nums[i]-min] != 0 )
+{
+// exclude the case in which two indices are the same.
+if( i != repeat_tag[nums[i]-min] )
+{
+indices[0] = i;
+indices[1] = repeat_tag[nums[i]-min];
+return indices;
+}
+}
+}
+
+return NULL;
+}
