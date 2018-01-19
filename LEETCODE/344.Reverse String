@@ -13,3 +13,19 @@ char* reverseString(char* s) {
     
     return ans;
 }
+
+//AC了，之前因为没有加'\0'结尾  所以多了点   
+char* reverseString(char* s) {
+    int i,j,size=0;
+    char* ans;
+    i=0;
+   size=strlen(s);
+    ans=malloc(sizeof(char)*(size+1));
+   
+      for(j=0;j<size;j++)
+      {
+        ans[size-1-j]=s[j];
+      }
+    ans[size]='\0';
+    return ans;
+}
