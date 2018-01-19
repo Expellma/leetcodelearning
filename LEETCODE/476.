@@ -1,0 +1,24 @@
+my solution
+int findComplement(int num) {
+    int tmp;
+    int ans[32]={0};
+    int i=0,j,sum=0,count=0;
+    
+    tmp=num;
+    while(tmp!=0)
+    {
+        if((tmp%2)==0)
+            ans[i++]=1;
+        else 
+            ans[i++]=0;
+        tmp==tmp>>1;
+        count++;
+    }
+    
+    for(j=count-1;j>=0;j--)
+    {
+        sum=sum<<1+ans[j];
+    }
+    return sum;
+}
+//提示runtimeError ：Line 12: index 32 out of bounds for type 'int [32]'
