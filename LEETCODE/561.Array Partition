@@ -1,0 +1,18 @@
+my solution  (AC)
+int arrayPairSum(int* nums, int numsSize) {
+    int tmp;
+    
+    for(int p=1;p<numsSize;p++)
+    {
+        int i;
+        tmp=nums[p];
+        for(i=p;i>=1&&nums[i-1]>tmp;i--)
+                nums[i]=nums[i-1];
+        nums[i]=tmp;
+    }
+    
+    int j,sum=0;
+    for(j=0;j<numsSize;j+=2)
+        sum+=nums[j];
+    return sum;
+}
