@@ -1,0 +1,19 @@
+//未完成
+
+char* reverseWords(char* s) {
+    int i=0,j=0,size;
+    char c;
+    int count=0;
+    
+    size=strlen(s);
+    while(s[i]!='\0')
+    {
+        if(s[i]=' ')
+        {
+            count=i-j;
+            c=s[i];
+            s[i]=
+        }
+    }
+    return s;
+}
