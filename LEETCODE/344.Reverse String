@@ -1,0 +1,15 @@
+my solution (Wrong answer 输出的字符串后面有两个点，不懂为啥)
+char* reverseString(char* s) {
+    int i,j,size=0;
+    char* ans;
+    i=0;
+   size=strlen(s);
+    ans=malloc(size*sizeof(char));
+   
+      for(j=0;j<size;j++)
+      {
+        ans[size-1-j]=s[j];
+      }
+    
+    return ans;
+}
