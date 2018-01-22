@@ -1,19 +1,32 @@
-//未完成
+my solution  AC  //以空格为判断点  选择一个词进行倒序 
+char* reservesingle(char* s,int left,int right)
+{
+    char tmp;
+    while(left<right)
+    {
+        tmp=s[left];
+        s[left]=s[right];
+        s[right]=tmp;
+        left++;
+        right--;
+    }
+    return s;  
+}
 
 char* reverseWords(char* s) {
-    int i=0,j=0,size;
-    char c;
-    int count=0;
-    
-    size=strlen(s);
+    int left=0,right=-1;
+    int i=0;
     while(s[i]!='\0')
     {
-        if(s[i]=' ')
+        if(s[i]==' ')
         {
-            count=i-j;
-            c=s[i];
-            s[i]=
+            reservesingle(s,left,right);
+            left=i+1;
+            right=i;
         }
+        else right++;
+        i++;
     }
+    reservesingle(s,left,right);
     return s;
 }
