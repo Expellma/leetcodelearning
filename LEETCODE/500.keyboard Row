@@ -5,7 +5,7 @@ MY SOLUTION  没
 
 
 一个code，不明白二级指针用法，
-int inRow(char *row, int length, char c) {
+int inRow(char *row, int length, char c) {        //函数功能为判断一个字符串是否有和字符C相同的字符
     for (int i = 0; i < length; i++) {
         int a = row[i];
         if (a == c || (a == c + 32)) {
@@ -16,23 +16,23 @@ int inRow(char *row, int length, char c) {
 } 
 
 char** findWords(char** words, int wordsSize, int* returnSize) {
-    char a[10] = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'};
+    char a[10] = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'};   //创建比较数组
     char b[9] = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
-    char c[7] = {'z', 'x', 'c', 'v', 'b', 'n', 'm'};
-    char **rows = (char **)malloc(sizeof(char *)*wordsSize);
+    char c[7] = {'z', 'x', 'c', 'v', 'b', 'n', 'm'};  
+    char **rows = (char **)malloc(sizeof(char *)*wordsSize);  //创建一个二级指针保存啥？
     int size = 0;
-    for (int i = 0; i < wordsSize; i++) {
-        char *word = words[i];
+    for (int i = 0; i < wordsSize; i++) {                  //从第一个单词开始找  
+        char *word = words[i];                             //words[i]为单词的地址
         int j = 0;
         int row = 0;
         int inOneRow = 1;
         while (word[j] != '\0') {
-            if (row == 0) {
+            if (row == 0) {                                //第一次比较，寻找属于哪个row
                 if (inRow(a, 10, word[j])) {
                     row = 1;
                     continue;
                 }
-                if (inRow(b, 9, word[j])) {
+                if (inRow(b,9, word[j])) {
                     row = 2;
                     continue;
                 }
@@ -45,7 +45,7 @@ char** findWords(char** words, int wordsSize, int* returnSize) {
                     inOneRow = 0;
                     break;
                 }
-            }
+            }                                                            //个人认为这个j++写作位置了，应该在大括号之前
             j++;
         }
         if (inOneRow) {
