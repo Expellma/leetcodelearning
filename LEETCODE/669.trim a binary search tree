@@ -1,0 +1,36 @@
+a solution using recursion
+struct TreeNode* trimBST(struct TreeNode* root, int L, int R) {
+    bool change = 0;
+    if(root) {                                                          //第一段处理不在（L,R）范围内的结点
+        if(root->val < L) {
+            root = root->right;
+            change = 1;
+        } else if (root->val > R) {
+            root = root->left;
+            change = 1;
+        }
+    
+        if (change) {
+            root = trimBST(root, L, R);
+        }
+        
+        if (root) {                                                       //若结点存在，则先序遍历下去
+            root->left = trimBST(root->left, L, R);
+            root->right = trimBST(root->right, L, R);
+        }
+    }
+    return root;
+}
+
+另一个更简洁解法
+struct TreeNode* trimBST(struct TreeNode* root, int L, int R) {
+    if (!root)
+        return NULL;
+    if(root->val<L)
+        return trimBST(root->right,L,R);
+    if(root->val>R)
+        return trimBST(root->left,L,R);
+    root->left  = trimBST(root->left,L,R);
+    root->right = trimBST(root->right,L,R);;
+    return root;
+}
