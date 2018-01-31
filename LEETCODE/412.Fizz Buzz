@@ -1,0 +1,45 @@
+my solution  (compile error)
+char** fizzBuzz(int n, int* returnSize) {
+    int i,j;
+    char** s;
+    
+    s=(char**)malloc(sizeof(char)*returnSize);
+    for(i=0;i<n;i++)
+    {
+        if(i%3==0&&i%5==0)
+            s[i][]="FizzBuzz";
+        else if(i%3==0)
+            s[i][]="Fizz";
+        else if(i%5==0)
+            s[i][]="Buzz"
+            else s[i][]=i;
+    }
+    return s;       
+}
+
+
+AC answer
+char** fizzBuzz(int n, int* returnSize) {
+    *returnSize = n;
+    char buf[11];
+    char** re_p = (char**)malloc(sizeof(char*)*n);    //先给二级指针创建空间 存放一级指针地址
+    int i = 0;
+    for(i=0;i<n;i++)
+    {
+        if(((i+1)%3==0)&&((i+1)%5==0))
+        {
+            sprintf(buf,"%s","FizzBuzz");            //将字符串按照%s的格式复制如buf[]中
+        }else if((i+1)%3==0){
+            sprintf(buf,"%s","Fizz");
+        }else if((i+1)%5==0){
+            sprintf(buf,"%s","Buzz");
+        }else{
+            sprintf(buf,"%d",i+1);
+        }
+        re_p[i]=malloc(sizeof(buf));                  //给每一个一级指针创建一个buff空间
+        memcpy(re_p[i],buf,strlen(buf)+1);            //将buff内容复制如re_p[i]中
+        memset(buf,"",11);                            //将buff清空
+    }
+
+    return re_p;
+}
