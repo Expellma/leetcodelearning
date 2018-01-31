@@ -1,0 +1,49 @@
+my solution:time limit exceeded
+int distributeCandies(int* candies, int candiesSize) {
+    int i,s=0,count=0,j;
+    int n=candiesSize;
+    
+    for(i=0;i<n;i++)
+    {
+        count++;
+        for(j=0;j<i;j++)
+        {
+            if(candies[i]==candies[j])
+            {
+                count-=1;
+                break;
+            }
+        }
+    }
+    
+    if(count>=n/2)
+        return s=n/2;
+    else return s=count;
+}
+
+
+C solution   hashtbl
+int distributeCandies(int* candies, int candiesSize) {
+int hashTbl[200002] = {0};
+int totalKind= 0;
+int index;
+
+for (index = 0; index < candiesSize; index++)
+{
+if (0 == (hashTbl[candies[index]+100000]))
+{
+totalKind++;	
+hashTbl[candies[index]+100000]+=1;
+}	
+}
+
+if (totalKind >= (candiesSize/2))
+{
+index = candiesSize/2;
+}
+else
+{
+index = totalKind;
+}
+return index;
+}
