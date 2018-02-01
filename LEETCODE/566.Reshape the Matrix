@@ -1,0 +1,25 @@
+my solution (none)
+
+
+C solution
+int** matrixReshape(int** nums, int m, int n, int r, int c, int** columnSizes, int* returnSize) {
+    if (r * c != m * n) {
+        r = m;
+        c = n;
+    }
+
+    *returnSize = r;                                        //                                     
+    int** result = (int**) malloc(r * sizeof(int*));
+    
+    *columnSizes = (int*) malloc(r * sizeof(int));
+    
+    for (int i = 0; i < r; ++i) {
+        result[i] = (int*) malloc(c * sizeof(int));
+        (*columnSizes)[i] = c;                               //这一句有什么用？
+    }
+    
+    for (int i = 0; i < m * n; ++i)
+        result[i/c][i%c] = nums[i/n][i%n];
+
+    return result;
+}
