@@ -1,0 +1,92 @@
+my solution (runtime error!! )
+int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
+    int i,r,c,result=0;
+    r=gridRowSize;
+    c=gridColSize;
+    
+    for(i=0;i<r*c;i++)
+    {
+        if(grid[i/c][i%c]==1)
+        {
+            if(grid[i/c-1][i%c]!=1)
+                result++;
+            if(grid[i/c][i%c-1]!=1)
+                result++;
+            if(grid[i/c+1][i%c]!=1)
+                result++;
+            if(grid[i/c][i%c+1]!=1)
+                result++;
+        }
+    }
+    
+    return result;
+    
+    //不知为何runtime error
+    //Runtime Error Message:
+    Line 11: load of misaligned address 0x000000000035 for type 'int', which requires 4 byte alignment
+    
+    int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
+    int i,j,r,c,result=0;
+    r=gridRowSize;
+    c=gridColSize;
+    
+    for(i=0;i<r;i++)
+        for(j=0;j<c;j++)
+    {
+        if(grid[i][j]==1)
+        {
+            if(grid[i-1][j]==0||((i-1)<0))
+                result++;
+            if(grid[i][j-1]==0||(j-1)<0)
+                result++;
+            if(grid[i+1][j]==0||(i+1)>=r)
+                result++;
+            if(grid[i][j+1]==0||(j+1)>=c)
+                result++;
+        }
+    }
+    
+    
+    AC solution
+    //处理一个cell的的边界问题
+    int get_cell(int **grid, int rowSize, int colSize, int row, int col){
+    if(row < 0 || col < 0 || row >= rowSize || col >= colSize){
+        return 0;
+    }
+    return grid[row][col];
+}
+
+//处理一个cell的周长计算
+int get_cell_perimeter(int **grid, int rowSize, int colSize, int row, int col){
+    int perimeter = 4;
+    if(get_cell(grid, rowSize, colSize, row, col-1)){
+        perimeter -= 1;
+    }
+    if(get_cell(grid, rowSize, colSize, row, col+1)){
+        perimeter -= 1;
+    }
+    if(get_cell(grid, rowSize, colSize, row-1, col)){
+        perimeter -= 1;
+    }
+    if(get_cell(grid, rowSize, colSize, row+1, col)){
+        perimeter -= 1;
+    }
+    return perimeter;
+}
+
+int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
+    int row = 0, col = 0;
+    int perimeter = 0;
+    for(; row < gridRowSize; row++){
+        for(col = 0; col < gridColSize; col++){
+            if(grid[row][col]){
+                perimeter += get_cell_perimeter(grid, gridRowSize, gridColSize, row, col);    
+            }
+        }
+    }
+    return perimeter;
+}
+    
+    return result;
+}
+}
