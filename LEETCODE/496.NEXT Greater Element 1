@@ -1,0 +1,101 @@
+my solution  (自己在VC上写输入输出成功了，但是在leetcode上输出为空)
+#include<stdio.h>
+
+int* nextGreaterElement(int* findNums,int findNumsSize,int* nums,int numsSize)
+{
+	int i,j;
+	int* ans=(int*)malloc(sizeof(int)*findNumsSize);
+
+	for(i=0;i<findNumsSize;i++)
+	{
+		j=0;
+		while(findNums[i]!=nums[j]){j++;}
+		for(j+=1;j<numsSize;j++)
+		{
+			if(nums[j]>findNums[i])
+			{
+				ans[i]=nums[j];
+				break;
+			}
+		}
+		if(j==numsSize)
+			ans[i]=-1;
+	}
+	return ans;
+}
+
+int main()
+{
+	int nums1Size=2;
+	int nums2Size=4;
+	int* nums1=(int*)malloc(sizeof(int)*nums1Size);
+	int* nums2=(int*)malloc(sizeof(int)*nums2Size);
+	int* ans=(int*)malloc(sizeof(int)*nums1Size);
+	int i,j;
+
+	for(i=0;i<nums1Size;i++)
+		scanf("%d",&nums1[i]);
+	for(i=0;i<nums2Size;i++)
+		scanf("%d",&nums2[i]);
+
+	ans=nextGreaterElement(nums1,nums1Size,nums2,nums2Size);
+
+	for(i=0;i<nums1Size;i++)
+		printf("%d ",ans[i]);
+
+	return 0;
+}
+
+
+DIS区的hash法
+int* nextGreaterElement(int* findNums, int findNumsSize, int* nums, int numsSize, int* returnSize) {
+    int* returnArray = NULL;
+    int* numsHash = NULL;
+
+    *returnSize = findNumsSize;
+
+    if(findNums != NULL && findNumsSize != 0 &&
+       nums != NULL && numsSize != 0) {
+        /* initalize the returnArray */
+        returnArray = malloc((*returnSize) * sizeof(int));
+        if(returnArray == NULL) {
+            err(-1, "nextGreaterElement: line 17: malloc: out of space!");
+        }
+
+        /* find the max element in the nums */
+        int max = 0;
+        for(int i = 0; i < numsSize; i++) {
+            if(max < nums[i]) {
+                max = nums[i];
+            }
+        }
+
+        /* initialize the numsHash */
+        numsHash = malloc((max+1) * sizeof(int));
+        if(numsHash == NULL) {
+            err(-1, "nextGreaterElement: line 31: malloc: out of space!");
+        }
+
+        /* hash the nums' element to numsHash, the key is nums's element, */
+        /* the velue is the next greater element, or -1 if does not exist */
+        /* nums[numsSize-1] is the last element of nums, don't have next, */
+        /* so set it to -1 directly */
+        for(int i = 0; i < numsSize-1; i++) {
+            numsHash[nums[i]] = -1;
+            for(int j = i+1; j < numsSize; j++) {
+                if(nums[j] > nums[i]) {
+                    numsHash[nums[i]] = nums[j];
+                    break;
+                }
+            }
+        }
+        numsHash[nums[numsSize-1]] = -1;
+
+        /* find the next greater element */
+        for(int i = 0; i < findNumsSize; i++) {
+            returnArray[i] = numsHash[findNums[i]];
+        }
+    }
+
+    return returnArray;
+}
