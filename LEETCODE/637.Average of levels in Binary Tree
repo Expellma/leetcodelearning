@@ -1,1 +1,44 @@
 
+C solution using height of BST and BFS
+//求a，b最大者
+int max (int a, int b) {                   
+    return a > b ? a : b;
+}
+
+//求树的高度
+int height(struct TreeNode* root) {
+    if (root) {
+        return (1 + max(height(root->left), height(root->right)));
+    } else {
+        return 0;
+    }
+}
+
+//广度优先搜索遍历树 level为层数？  num_elem 为该层的结点个数
+double BFS(struct TreeNode* root, int level, int* num_elem) {
+    int left_entry = 0, right_entry = 0;
+    if(root == NULL) return 0;
+    
+    if (level == 0) {
+        (*num_elem) += 1;
+        return root->val;
+    } else {
+        return BFS(root->left, level-1, num_elem) + BFS(root->right, level-1, num_elem);
+    }
+}
+double* averageOfLevels(struct TreeNode* root, int* returnSize) {
+    int i = 0;
+    *returnSize = height(root);
+    
+    double* avgArr = malloc(sizeof(double) * (*returnSize));
+    int* numElem = malloc(sizeof(int) * (*returnSize));
+    
+    for (i = 0; i < *returnSize; i++) {                 //每层 的平均值
+        numElem[i] = 0;
+        avgArr[i] = BFS(root, i, &numElem[i]);
+        
+        avgArr[i] /= numElem[i];
+    }
+    
+    return avgArr;
+}
