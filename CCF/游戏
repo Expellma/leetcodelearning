@@ -1,0 +1,40 @@
+#include<stdio.h>
+#iclude<stdlib.h>
+int main()
+{
+  int tick,number,i,k,n；
+  int *a;
+
+  scanf("%d%d",&n,&k);
+  tick=0;
+  number=n;
+  i=0;
+  a=(int*)malloc(sizeof(int)*(n));
+  
+  for(j=0;j<n;j++)
+    a[j]=1;
+
+  while(number>1)
+    { 
+      tick++;
+      i++;
+      while(a[i%n]==0) {i++;}
+      if((tick%k)==0||(tick%10)==k)
+        {
+          a[i%n]=0;
+          number-=1;
+        }
+    }
+
+    for(i=0;i<n;i++)
+    {
+       if(a[i]==1)
+         {
+            if(i==0) printf("%d",n);
+            else printf("%d",i);
+         }
+     }
+
+    free(a);
+    return 0;
+}
