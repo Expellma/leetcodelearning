@@ -1,0 +1,28 @@
+#include<stdio.h>
+
+int main()
+{
+  int money,number=0;
+  
+
+  scanf("%d",&money);
+  while(money>=10)
+  {
+    if((money/10)>=5)
+      { 
+        number+=7;
+        money-=50;
+      }
+    else {if（(money/10)>=3)
+            {
+              number+=4;
+              money-=30;
+            }
+           else {money-=10;
+                 number+=1;}
+          } 
+  }
+
+printf("%d",number);
+ return 0;
+}
