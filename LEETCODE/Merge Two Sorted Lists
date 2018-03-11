@@ -6,59 +6,47 @@
  * };
  */
  
- wrong answer
-struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
-    if(l1==NULL)
-        return l2;
-    if(l2==NULL)
-        return l2;
+ //COMPILE ERROR  
+ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
+    struct ListNode* head;
+    struct ListNode* p,q;
+    q=(struct ListNode)malloc(sizeof(struct ListNode));
+    head=(struct ListNode)malloc(sizeof(struct ListNode));
+   q->next=NULL;
+    head->next=NULL;
+    p=head;
+   
     
-    int tempval;
-    struct ListNode *p=l1;
-    struct ListNode *q=l2;
-    struct ListNode *temp;
-    if(l1->val<=l2->val)
+    while(l1!=NULL||l2!=NULL)
     {
-        l1->next=NULL;
-        p=p->next;
-    }
-    else{tempval=l1->val;
-         l1->val=l2->val;
-         l2->val=tempval;
-        l1->next=NULL;
-         p=p->next;
-    }
-    
-    while(p!=NULL&&q!=NULL)
-    {
-        if(p->val<=q->val)
+        if(l1==NULL)
         {
-            temp=p->next;
-            p->next=NULL;
-            l1->next=p;
-            l1=p;
-            p=temp;
+            p->next=l2;
+            break;
         }
-        else{
-            temp=q->next;
-            q->next=NULL;
-            l1->next=q;
-            l1=q;
-            q=temp;
+        if(l2==NULL)
+        {
+            p->next=l1;
+            break;
         }
         
+        if(l1->val<l2->val)
+        {
+            q->val=l1->val;
+            l1=l1->next;
+            p->next=q;
+            p=q;
+        }
+        else
+        {
+            q->val=l2->val;
+            l2=l2->next;
+            p->next=q;
+            p=q;
+        }
     }
-    
-    if(p==NULL)
-    {
-        l1->next=q;
-    }
-    
-    if(q==NULL)
-        l1->next=p;
-    
-    return l1;
-    
+    p->next=NULL;
+    return head->next;
 }
 
 AC answer
