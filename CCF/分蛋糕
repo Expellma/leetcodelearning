@@ -1,0 +1,28 @@
+
+80 分  = =
+#include<stdio.h>
+
+int main()
+{
+  int i,j,n,k;
+  int cake[1000];
+  int sum=0;
+  int current=0;
+
+  scanf("%d%d\n",&n,&k);
+  for(i=0;i<n;i++)
+    scanf("%d ",&cake[i]);
+  
+  for(i=0;i<n;i++)
+ {
+    current+=cake[i];
+    if(current>=k)
+      {
+        sum++;
+        current=0;
+      }
+ }
+
+  printf("%d",sum);
+  return 0;
+}
