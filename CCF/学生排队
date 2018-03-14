@@ -1,0 +1,60 @@
+//运行错误????
+
+#include<stdio.h>
+#include<stdlib.h>
+int posi(int* a,int x)
+{
+int i=0;
+while(a[i]!=x)
+  i++;
+return i;
+}
+
+int main()
+{
+int i,j,n,m;
+int *que;
+int **move;
+int pos,dpos,temp;
+
+scanf("%d\n",&n);
+scanf("%d\n",&m);
+que=(int*)malloc(sizeof(int)*n);
+
+move=(int**)malloc(sizeof(int*)*m);
+for(i=0;i<m;i++)
+  move[i]=(int*)malloc(sizeof(int)*2);
+
+for(i=0;i<m;i++)
+  for(j=0;j<2;j++)
+    scanf("%d",&move[i][j]);
+
+for(i=0;j<n;i++)
+  que[i]=i+1;
+
+for(i=0;i<m;i++)
+{
+  pos=posi(que,move[i][0]);
+  dpos=pos+move[i][1];
+  temp=que[pos];
+  if(pos<dpos)
+  {
+   for(j=pos+1;j<=dpos;j++)
+     que[j-1]=que[j];
+   que[dpos]=temp;
+  }
+  else 
+  {
+   for(j=pos;j>dpos;j--)
+     que[j]=que[j-1];
+   que[dpos]=temp;
+  }
+}
+
+for(i=0;i<n;i++)
+  printf("%d ",que[i]);
+  
+free(que);
+free(move);
+return 0;
+}
