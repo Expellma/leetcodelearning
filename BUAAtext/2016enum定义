@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define MAXSIZE 10000
+#define STRSIZE 30
+
+typedef struct Node{
+    char str[STRSIZE];      //变量名
+    int data;               //数值
+}Node;
+
+
+int main(){
+
+    char ch;
+    char str[MAXSIZE] = {'\0'};             //存储键盘输入
+    int len = 0;
+    while( (ch = getchar()) != EOF){        
+        str[len++] = ch;
+    }
+
+    int numOfNode = 1;                      //枚举中的变量个数
+    int i = 0;
+    while(str[i] != '{')                    
+        ++i;
+    int begin = i;                          //begin为'{'的下标
+    while(str[i] != '}'){
+        if(str[i] == ',')
+            ++numOfNode;
+        ++i;
+    }
+    int end = i;                            //end为'}'的下标
+
+    //printf("%d\n", numOfNode);
+    Node* arr = (Node* )malloc(sizeof(Node) * numOfNode);       //创建节点数组
+    int k = 0;      //k为数组arr的下标
+    int tag,data;   //tag为arr[k]中str的下标  data为arr[k]中data的值
+    tag = data = 0;
+    for(i = begin + 1; i < end; ){
+        while(str[i] != '=' && str[i] != ',' && str[i] != '}'){     //赋值2arr[k].str
+            arr[k].str[tag++] = str[i];
+            ++i;
+        }
+        arr[k].str[tag] = '\0';                                     //加上结尾'\0'
+        if(str[i] == '='){                                          //如果为=，data值从输入中获得
+            data = 0;
+            i++;
+            int temp = i;
+            while(str[i] >= '0' && str[i] <= '9')
+                ++i;
+            for(; temp < i; temp++)
+                data = data * 10 + int(str[temp] - '0');            //得到输入的data
+            arr[k].data = data;
+
+            ++i;
+            ++data;
+        }else if(str[i] == ',' || str[i] == '}'){                   //如果不为=，data值为上一个data加一
+            arr[k].data = data;
+            ++data;
+            ++i;
+        }
+
+        tag = 0;                                                    //把arr[k].str下标归为为0
+        ++k;
+    }
+
+    for(i = 0; i < numOfNode; i++)                                  //输出
+        printf("%s%d\n", arr[i].str, arr[i].data);
+
+    return 0;
+    }
