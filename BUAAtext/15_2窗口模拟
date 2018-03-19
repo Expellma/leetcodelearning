@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+  int n,k,i,x,fpos,j,temp;
+  int** pos;
+  int** click;
+  //输入
+  scanf("%d\n",&n);
+  pos=(int**)malloc(sizeof(int*)*n);
+  for(i=0;i<n;i++)
+    pos[i]=(int*)malloc(sizeof(int)*5);
+   for(i=0;i<n;i++)
+     for(j=0;j<5;j++)
+       scanf("%d",&pos[i][j]);
+   
+   scanf("%d\n",&k);
+   click=(int**)malloc(sizeof(int*)*k);
+   for(i=0;i<k;i++)
+     click=(int*)malloc(sizeof(int)*2);
+    for(i=0;i<k;i++)
+      for(j=0;j<2;j++)
+         scanf("%d",&click[i][j]);
+     
+     //确定所在区域
+     x=0;
+     while(x<k)
+     {
+       fpos=n+1;
+       for(i=0;i<n;i++)
+       {
+         if(pos[i][1]<click[x][0]&&pos[i][3]>click[x][0]&&pos[i][2]<click[x][1]&&pos[i][4]>click[x][1])
+         {
+           if(pos[i][0]<fpos)
+           {
+             fpos=pos[i][0];
+             temp=i;
+           }
+         }
+       }
+       
+       //改变序号
+       for(i=0;i<n;i++)
+       {
+         if(pos[i][0]<fpos)
+           pos[i][0]+=1;
+       }
+       pos[temp][0]=1;
+       
+       x++;
+     }
+     
+     //输出
+     for(i=0;i<n;i++)
+       printf("%d ",pos[i][0]);
+       
+     free(pos);
+     free(click);
+     return 0;
+}
